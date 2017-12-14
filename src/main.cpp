@@ -8,7 +8,7 @@
 
 #include "Shared.h"
 
-#define VERSION "0.02"
+#define VERSION "0.03"
 
 #define WIFI_CONNECT_TIMEOUT 12000
 #define MQTT_CONNECT_TIMEOUT (WIFI_CONNECT_TIMEOUT + 10000)
@@ -46,6 +46,7 @@ const char *_ResetReasons[RESET_REASON_COUNT] = {
 TFT_eSPI tft;
 TaskHandle_t _beepHandle;
 
+//--------------------------------------------------------------------
 const char *resetReason(int reason)
 {
     if( reason < RESET_REASON_COUNT)
@@ -55,19 +56,14 @@ const char *resetReason(int reason)
 //--------------------------------------------------------------------
 void PublishAllSensors()
 {
-    StaticJsonBuffer<200> jsonBuffer;
-    JsonObject &j = jsonBuffer.createObject();
-
-    j[SensorDoor.name()] = SensorDoor.state();
-    j[Sensor1.name()] = Sensor1.state();
-    j[Sensor2.name()] = Sensor2.state();
-    j[Sensor3.name()] = Sensor3.state();
-    j[Sensor4.name()] = Sensor4.state();
-    j[Sensor5.name()] = Sensor5.state();
-    j[Sensor6.name()] = Sensor6.state();
-    j[Sensor7.name()] = Sensor7.state();
-
-    Mqtt.publish(ALARM_STATUS_SENSORS, j);
+    SensorDoor.PublishStatus();
+    Sensor1.PublishStatus();
+    Sensor2.PublishStatus();
+    Sensor3.PublishStatus();
+    Sensor4.PublishStatus();
+    Sensor5.PublishStatus();
+    Sensor6.PublishStatus();
+    Sensor7.PublishStatus();
 }
 //--------------------------------------------------------------------
 void PublishEnvironment()
@@ -88,7 +84,7 @@ void PublishEnvironment()
     Mqtt.publish(ALARM_STATUS_ENV, j);
 }
 //--------------------------------------------------------------------
-void PublishRestartReason()
+void PublishResetReason()
 {
     StaticJsonBuffer<200> jsonBuffer;
     JsonObject &j = jsonBuffer.createObject();
@@ -101,7 +97,7 @@ void PublishRestartReason()
 //--------------------------------------------------------------------
 void PublishAlarmStatus()
 {
-    PublishRestartReason();
+    PublishResetReason();
     PublishAllSensors();
     PublishEnvironment();
 

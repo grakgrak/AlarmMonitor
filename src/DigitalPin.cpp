@@ -1,23 +1,25 @@
 #include "Shared.h"
 
 //--------------------------------------------------------------------
-TDigitalPin::TDigitalPin(const String &name, uint8_t pin, uint8_t mode)
+TDigitalPin::TDigitalPin(const String &name, uint8_t pin, uint8_t mode, bool invert)
 {
     _pin = pin;
     _name = name;
     _beepOnTrigger = true;
+    _invert = invert;
+    
     pinMode(_pin, mode);
-    _triggered = digitalRead(_pin);
+    _pinLevel = digitalRead(_pin);
 }
 
 //--------------------------------------------------------------------
 void TDigitalPin::update()
 {
-    if (digitalRead(_pin) != _triggered)
+    if (digitalRead(_pin) != _pinLevel)    // edge detect
     {
-        _triggered = !_triggered;
+        _pinLevel = !_pinLevel;
         PublishStatus();
-        if (_triggered && _beepOnTrigger)
+        if (IsTriggered() && _beepOnTrigger)
             Beeper.Tone(1000, 30);
     }
 }
