@@ -115,7 +115,7 @@ int checkForKeyPress(const TKeyPad keys[], int keyCount )
             if (keys[i].hitTest(t_x, t_y))
             {
                 // check for repeat key presses
-                if (millis() - _lastKeyTime > 333) // if a third of a second has passed allow a repeat key
+                if (millis() - _lastKeyTime > 250) // if 250ms has passed allow a repeat key
                     _lastKey = VOID_KEY;
 
                 if (i == _lastKey || keys[i].isEnabled() == false)

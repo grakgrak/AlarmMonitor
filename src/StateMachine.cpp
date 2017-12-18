@@ -216,7 +216,7 @@ TMain::State TStateMachine::_EXIT_HOUSE(bool stateChanged)
 
     CountdownScreen.update();
 
-    if (CountdownScreen.checkForKeyPress() == CANCEL_KEY)
+    if (CountdownScreen.checkKeys() == CANCEL_KEY)
         return TMain::WAIT_FOR_CMD;
 
     if (CheckForButtonPress() == CANCEL_BUTTON)

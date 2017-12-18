@@ -12,7 +12,7 @@ class TCountdownScreen
   public:
     void render(const String &msg, int secs);
     void update();
-    int checkForKeyPress();
+    int checkKeys();
 };
 
 #endif //COUNTDOWNSCREEN_H

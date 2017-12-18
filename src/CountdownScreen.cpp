@@ -35,7 +35,7 @@ void TCountdownScreen::update()
     }
 }
 
-int TCountdownScreen::checkForKeyPress()
+int TCountdownScreen::checkKeys()
 {
     uint16_t t_x, t_y; // To store the touch coordinates
 
