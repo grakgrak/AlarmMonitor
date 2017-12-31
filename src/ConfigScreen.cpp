@@ -6,7 +6,8 @@ TKeyPad configKeys[] =
     {
         TKeyPad(10, 10, 180, 50, TFT_GREENYELLOW, "Add RFID Card", ADDCARD_KEY),
         TKeyPad(10, 70, 180, 50, TFT_GREENYELLOW, "Del RFID Card", DELCARD_KEY),
-        TKeyPad(10, 130, 100, 50, TFT_ORANGE, "Cancel", CANCEL_KEY)
+        TKeyPad(10, 130, 140, 50, TFT_GREENYELLOW, "WalkTest", WALKTEST_KEY),
+        TKeyPad(200, 130, 100, 50, TFT_ORANGE, "Cancel", CANCEL_KEY)
     };
 
 //--------------------------------------------------------------------
@@ -35,22 +36,19 @@ int TConfigScreen::checkKeys()
 //--------------------------------------------------------------------
 TConfig::State TConfigScreen::_WAIT_FOR_CMD(bool newState)
 {
-    int key = checkKeys();
-    if (key == CANCEL_KEY)
-        return TConfig::FINISHED;
-
-    if (key == ADDCARD_KEY)
+    switch( checkKeys())
     {
-        message("Present Card");
-        return TConfig::WAIT_FOR_ADD;
+        case CANCEL_KEY:
+            return TConfig::FINISHED;
+        case ADDCARD_KEY:
+            message("Present Card");
+            return TConfig::WAIT_FOR_ADD;
+        case DELCARD_KEY:
+            message("Present Card");
+            return TConfig::WAIT_FOR_DELETE;
+        case WALKTEST_KEY:
+            return TConfig::WALKTEST;
     }
-
-    if (key == DELCARD_KEY)
-    {
-        message("Present Card");
-        return TConfig::WAIT_FOR_DELETE;
-    }
-
     return TConfig::WAIT_FOR_CMD;
 }
 //--------------------------------------------------------------------
@@ -106,6 +104,7 @@ bool TConfigScreen::loop()
     switch (_state)
     {
     case TConfig::START:
+        _walkTest = false;
         nextState = TConfig::WAIT_FOR_CMD;
         break;
     case TConfig::WAIT_FOR_CMD:
@@ -117,6 +116,9 @@ bool TConfigScreen::loop()
     case TConfig::WAIT_FOR_DELETE:
         nextState = _WAIT_FOR_DELETE(_newState);
         break;
+    case TConfig::WALKTEST:
+        _walkTest =  true;
+        // drop through
     case TConfig::FINISHED:
         _state = TConfig::START;
         return false;

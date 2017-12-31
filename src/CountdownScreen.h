@@ -10,7 +10,7 @@ class TCountdownScreen
     int _seconds;
     String _message;
   public:
-    void render(const String &msg, int secs);
+    void render(int secs, const String &msg);
     void update();
     int checkKeys();
 };

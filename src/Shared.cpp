@@ -9,7 +9,7 @@ TDigitalPin Sensor4("pir4", SENSOR4_PIN, INPUT, true); // GPIO35 input only no P
 TDigitalPin Sensor5("pir5", SENSOR5_PIN, INPUT_PULLUP, true);
 TDigitalPin Sensor6("pir6", SENSOR6_PIN, INPUT_PULLUP, false);
 TDigitalPin Sensor7("pir7", SENSOR7_PIN, INPUT_PULLUP, true);
-TDigitalPin SensorDoor("door", SENSOR8_PIN, INPUT_PULLUP, false);
+TDigitalPin SensorDoor("door", DOOR_PIN, INPUT_PULLUP, false);
 
 TButton OkButton(BUTTON_OK_PIN, INPUT_PULLDOWN);
 TButton CancelButton(BUTTON_CANCEL_PIN, INPUT_PULLDOWN);

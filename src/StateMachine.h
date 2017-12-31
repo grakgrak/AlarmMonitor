@@ -31,7 +31,7 @@ private:
   void arm();
   void disarm();
   void updateSensors();
-  bool anySensorTriggered();
+  int anySensorTriggered();
 
 public:
   TStateMachine();

@@ -16,10 +16,10 @@
 #include "RFID.h"
 #include "StateMachine.h"
 
-#define SENSOR8_PIN 26
+#define DOOR_PIN 32
 #define SENSOR7_PIN 25
-#define SENSOR6_PIN 33
-#define SENSOR5_PIN 32
+#define SENSOR6_PIN 26
+#define SENSOR5_PIN 33
 #define SENSOR4_PIN 35
 #define SENSOR3_PIN 34
 #define SENSOR2_PIN 39

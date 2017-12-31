@@ -209,7 +209,7 @@ TMain::State TStateMachine::_EXIT_HOUSE(bool stateChanged)
     static unsigned long timeout;
     if (stateChanged)
     {
-        CountdownScreen.render("Waiting for door...", 20);
+        CountdownScreen.render(20, "Waiting for door...");
         Beeper.Beep(250, 750, 100);
         timeout = millis();
     }
@@ -254,7 +254,7 @@ TMain::State TStateMachine::_ARMED(bool stateChanged)
     if (SensorDoor.IsTriggered()) // check DOOR for open
         return TMain::ENTER_HOUSE;
 
-    if (anySensorTriggered())
+    if (anySensorTriggered() > 0)
         return TMain::TRIGGERED;
 
     return TMain::ARMED; // stay in current state
@@ -265,6 +265,7 @@ TMain::State TStateMachine::_ENTER_HOUSE(bool stateChanged)
     static unsigned long timeout;
     if (stateChanged)
     {
+        MainScreen.message("Enter Home");
         MainScreen.render("Disarm");
         setBacklight(true);
         Beeper.Beep(250, 750, 100);
@@ -296,7 +297,17 @@ TMain::State TStateMachine::_WALK_TEST(bool stateChanged)
 {
     if (stateChanged)
     {
+        MainScreen.message("Walk Test");
+        setBacklight(true);
     }
+
+    if( MainScreen.checkKeys() == CANCEL_KEY)
+        return TMain::WAIT_FOR_CMD;
+
+    int sensor = anySensorTriggered();
+    if( sensor > 0)
+        Beeper.Beep(100,250,sensor);
+
     return TMain::WALK_TEST; // stay in current state
 }
 //--------------------------------------------------------------------
@@ -308,7 +319,11 @@ TMain::State TStateMachine::_CONFIG(bool stateChanged)
     }
 
     if( ConfigScreen.loop() == false)
+    {
+        if( ConfigScreen.performWalkTest())
+            return TMain::WALK_TEST;
         return TMain::WAIT_FOR_CMD;
+    }
 
     return TMain::CONFIG; // stay in current state
 }
@@ -319,7 +334,7 @@ TMain::State TStateMachine::_TRIGGERED(bool stateChanged)
     if (stateChanged)
     {
         setBacklight(true);
-        MainScreen.render("Disarm");
+        MainScreen.render("Disarm");    
         Beeper.Beep(400, 100, 1000); // sound the alarm
         timeout = millis();
     }
@@ -348,10 +363,25 @@ void TStateMachine::publishState()
 {
     Mqtt.publish(ALARM_CURRENT_STATE, TMain::Names[_state]);
 }
+
 //--------------------------------------------------------------------
-bool TStateMachine::anySensorTriggered()
+int TStateMachine::anySensorTriggered()
 {
-    return Sensor1.IsTriggered() || Sensor2.IsTriggered() || Sensor3.IsTriggered() || Sensor4.IsTriggered() || Sensor5.IsTriggered() || Sensor6.IsTriggered() || Sensor7.IsTriggered();
+    if(Sensor1.IsTriggered()) 
+        return 1;
+    if(Sensor2.IsTriggered()) 
+        return 2;
+    if(Sensor3.IsTriggered()) 
+        return 3;
+    if(Sensor4.IsTriggered()) 
+        return 4;
+    if(Sensor5.IsTriggered()) 
+        return 5;
+    if(Sensor6.IsTriggered()) 
+        return 6;
+    if(Sensor7.IsTriggered()) 
+        return 7;
+    return 0;
 }
 //--------------------------------------------------------------------
 void TStateMachine::updateSensors()

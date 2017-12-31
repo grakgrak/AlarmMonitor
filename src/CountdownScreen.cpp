@@ -4,7 +4,7 @@
 TKeyPad cancel(200, 130, 100, 50, TFT_ORANGE, "Cancel", CANCEL_KEY);
 
 
-void TCountdownScreen::render(const String &msg, int secs)
+void TCountdownScreen::render(int secs, const String &msg)
 {
     _message = msg;
     _seconds = secs;
