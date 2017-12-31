@@ -297,6 +297,7 @@ TMain::State TStateMachine::_WALK_TEST(bool stateChanged)
 {
     if (stateChanged)
     {
+        MainScreen.render("Test");
         MainScreen.message("Walk Test");
         setBacklight(true);
     }

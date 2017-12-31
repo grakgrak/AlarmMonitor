@@ -15,7 +15,8 @@ TKeyPad mainKeys[] =
         TKeyPad(130, 130, 50, 50, TFT_GREENYELLOW, "9", 9),
         TKeyPad(70, 190, 50, 50, TFT_GREENYELLOW, "0", 0),
         TKeyPad(200, 10, 100, 100, TFT_BLUE, "Arm", ARM_KEY),
-        TKeyPad(200, 130, 100, 50, TFT_ORANGE, "Clear", CANCEL_KEY)};
+        TKeyPad(200, 130, 100, 50, TFT_ORANGE, "Clear", CANCEL_KEY)
+        };
 
 //--------------------------------------------------------------------
 TMainScreen::TMainScreen()

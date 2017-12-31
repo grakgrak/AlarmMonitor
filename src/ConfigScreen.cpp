@@ -1,7 +1,7 @@
 #include "ConfigScreen.h"
 #include "Shared.h"
 
-#define CONFIGSCREEN_KEYCOUNT 3
+#define CONFIGSCREEN_KEYCOUNT 4
 TKeyPad configKeys[] =
     {
         TKeyPad(10, 10, 180, 50, TFT_GREENYELLOW, "Add RFID Card", ADDCARD_KEY),
