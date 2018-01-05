@@ -13,7 +13,6 @@ extern const char *ALARM_RFID_COUNT;
 extern const char *ALARM_RFID_UID;
 extern const char *ALARM_STATUS_ENV;
 extern const char *ALARM_STATUS_RESET;
-extern const char *ALARM_STATUS_SENSORS;
 extern const char *ALARM_LOG_TRACE;
 
 extern const char *ALARM_SENSOR; // partial topic

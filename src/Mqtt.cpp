@@ -2,15 +2,16 @@
 #include "Shared.h"
 #include <WiFi.h>
 
+// listening topics
 const char *SYS_SYNC_HASH = "sys/sync/#";
 const char *CMD_ALARM_HASH = "cmd/alarm/#";
 
 // publish topics
 const char *SYS_LOGIN_NAME = "sys/login/name";
+const char *ALARM_STATUS = "alarm/status";
 const char *ALARM_CURRENT_STATE = "alarm/current/state";
 const char *ALARM_STATUS_ENV = "alarm/status/env";
 const char *ALARM_STATUS_RESET = "alarm/status/reset";
-const char *ALARM_STATUS_SENSORS = "alarm/status/sensors";
 const char *ALARM_HEARTBEAT_UPTIME = "alarm/heartbeat/uptime";
 const char *ALARM_RFID_UID = "alarm/rfid/uid";
 const char *ALARM_RFID_CARD = "alarm/rfid/card";
@@ -92,7 +93,8 @@ bool TMqtt::isConnected(unsigned long timeout)
 
             _mqttClient.setCallback(callback);
 
-            if (_mqttClient.connect("Alarm", _mqttUser, _mqttPassword))
+            // connect with a LWT message
+            if (_mqttClient.connect("Alarm", _mqttUser, _mqttPassword, ALARM_STATUS, 0, true, "offline"))
             {
                 // subscribe to
                 _mqttClient.subscribe(SYS_SYNC_HASH);
@@ -100,6 +102,7 @@ bool TMqtt::isConnected(unsigned long timeout)
                 _mqttClient.subscribe(CMD_ALARM_HASH);
 
                 //login to mqtt
+                _mqttClient.publish(ALARM_STATUS, "online", true);  // publish to retained topic
                 _mqttClient.publish(SYS_LOGIN_NAME, "alarm");
             }
             else

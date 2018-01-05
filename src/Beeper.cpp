@@ -10,8 +10,13 @@ TBeeper Beeper; // Global Instance
 //--------------------------------------------------------------------
 TBeeper::TBeeper()
 {
+    _beepState = IDLE;
+    _toneState = IDLE;
+
     ledcSetup(CHANNEL, 2000, RESOLUTION);
     ledcAttachPin(TONE_PIN, CHANNEL);
+    ledcWrite(CHANNEL, 0);
+    ledcWriteTone(CHANNEL, 0); // turn tone off
 
     pinMode(BEEP_PIN, OUTPUT);
     digitalWrite(BEEP_PIN, LOW);

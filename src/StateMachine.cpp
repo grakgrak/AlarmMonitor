@@ -114,8 +114,8 @@ TMain::State TStateMachine::_SLEEPING(bool stateChanged)
     if (isBacklightOn())
         return TMain::WAIT_FOR_CMD;
 
-    if (CheckForButtonPress() != VOID_BUTTON)
-        return TMain::WAIT_FOR_CMD;
+    //if (CheckForButtonPress() != VOID_BUTTON)
+        //return TMain::WAIT_FOR_CMD;
 
     if (SensorDoor.IsTriggered()) // if DOOR open goto EXIT_HOUSE
         return TMain::WAIT_FOR_CMD;
@@ -149,16 +149,16 @@ TMain::State TStateMachine::_WAIT_FOR_CMD(bool stateChanged)
         return TMain::WAIT_FOR_CMD;
     }
 
-    switch (CheckForButtonPress())
-    {
-    case TButtonEvent::ARM_BUTTON:
-        if (MainScreen.checkForUnlockCode(ARM_KEY))
-            return TMain::WAIT_FOR_DOOR;
-        break;
-    case TButtonEvent::CANCEL_BUTTON:
-        MainScreen.cancelEntry();
-        break;
-    }
+    // switch (CheckForButtonPress())
+    // {
+    // case TButtonEvent::ARM_BUTTON:
+    //     if (MainScreen.checkForUnlockCode(ARM_KEY))
+    //         return TMain::WAIT_FOR_DOOR;
+    //     break;
+    // case TButtonEvent::CANCEL_BUTTON:
+    //     MainScreen.cancelEntry();
+    //     break;
+    // }
 
     int card = RFID.IsCardPresent();
     if( card == 2)  // if master card seen then enter config mode
@@ -192,8 +192,8 @@ TMain::State TStateMachine::_WAIT_FOR_DOOR(bool stateChanged)
     if (MainScreen.checkKeys() == CANCEL_KEY)
         return TMain::WAIT_FOR_CMD;
 
-    if (CheckForButtonPress() == CANCEL_BUTTON)
-        return TMain::WAIT_FOR_CMD;
+    // if (CheckForButtonPress() == CANCEL_BUTTON)
+    //     return TMain::WAIT_FOR_CMD;
 
     if (SensorDoor.IsTriggered()) // if DOOR open goto EXIT_HOUSE
         return TMain::EXIT_HOUSE;
@@ -219,8 +219,8 @@ TMain::State TStateMachine::_EXIT_HOUSE(bool stateChanged)
     if (CountdownScreen.checkKeys() == CANCEL_KEY)
         return TMain::WAIT_FOR_CMD;
 
-    if (CheckForButtonPress() == CANCEL_BUTTON)
-        return TMain::WAIT_FOR_CMD;
+    // if (CheckForButtonPress() == CANCEL_BUTTON)
+    //     return TMain::WAIT_FOR_CMD;
 
     if (RFID.IsCardPresent() > 0)
         return TMain::WAIT_FOR_CMD;

@@ -184,6 +184,8 @@ void init_wifi()
 
     // Wifi setup
     WiFi.begin(ssid, password);
+    WiFi.setHostname("Terrorem");
+
     while (isWiFiConnected(750) == false)
         Debug.println("Connecting to WiFi...");
     Debug.println("WiFi Connected - " + WiFi.localIP().toString());

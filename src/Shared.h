@@ -67,7 +67,7 @@ extern String secsToTime(unsigned long duration);
 
 extern bool isBacklightOn();
 extern void setBacklight(bool state);
-extern TButtonEvent CheckForButtonPress();
+//extern TButtonEvent CheckForButtonPress();
 extern int checkForKeyPress(const TKeyPad keys[], int keyCount);
 extern void PublishAlarmStatus();
 

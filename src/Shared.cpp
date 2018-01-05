@@ -11,10 +11,10 @@ TDigitalPin Sensor6("pir6", SENSOR6_PIN, INPUT_PULLUP, false);
 TDigitalPin Sensor7("pir7", SENSOR7_PIN, INPUT_PULLUP, true);
 TDigitalPin SensorDoor("door", DOOR_PIN, INPUT_PULLUP, false);
 
-TButton OkButton(BUTTON_OK_PIN, INPUT_PULLDOWN);
-TButton CancelButton(BUTTON_CANCEL_PIN, INPUT_PULLDOWN);
-bool _okButtonState = true;
-bool _cancelButtonState = true;
+//TButton OkButton(BUTTON_OK_PIN, INPUT_PULLDOWN);
+//TButton CancelButton(BUTTON_CANCEL_PIN, INPUT_PULLDOWN);
+//bool _okButtonState = true;
+//bool _cancelButtonState = true;
 
 
 unsigned long _sysTime = 0;      // time in secs since 1 Jan 1970
@@ -77,28 +77,28 @@ String secsToTime(unsigned long duration)
     return hours + ":" + mins + ":" + secs;
 }
 //--------------------------------------------------------------------
-TButtonEvent CheckForButtonPress()
-{
-    if (OkButton.Check() != _okButtonState)
-    {
-        _okButtonState = !_okButtonState;
-        if (_okButtonState == false)
-        {
-            Debug.println("OK Button pressed.");
-            return ARM_BUTTON;
-        }
-    }
-    if (CancelButton.Check() != _cancelButtonState)
-    {
-        _cancelButtonState = !_cancelButtonState;
-        if (_cancelButtonState == false)
-        {
-            Debug.println("Cancel Button pressed.");
-            return CANCEL_BUTTON;
-        }
-    }
-    return VOID_BUTTON;
-}
+// TButtonEvent CheckForButtonPress()
+// {
+//     if (OkButton.Check() != _okButtonState)
+//     {
+//         _okButtonState = !_okButtonState;
+//         if (_okButtonState == false)
+//         {
+//             Debug.println("OK Button pressed.");
+//             return ARM_BUTTON;
+//         }
+//     }
+//     if (CancelButton.Check() != _cancelButtonState)
+//     {
+//         _cancelButtonState = !_cancelButtonState;
+//         if (_cancelButtonState == false)
+//         {
+//             Debug.println("Cancel Button pressed.");
+//             return CANCEL_BUTTON;
+//         }
+//     }
+//     return VOID_BUTTON;
+// }
 
 //--------------------------------------------------------------------
 int checkForKeyPress(const TKeyPad keys[], int keyCount )
