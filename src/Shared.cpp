@@ -6,9 +6,9 @@ TDigitalPin Sensor1("pir1", SENSOR1_PIN, INPUT, true); // GPIO36 input only no P
 TDigitalPin Sensor2("pir2", SENSOR2_PIN, INPUT, true); // GPIO39 input only no PU/PD - using external PU resistor
 TDigitalPin Sensor3("pir3", SENSOR3_PIN, INPUT, true); // GPIO34 input only no PU/PD - using external PU resistor
 TDigitalPin Sensor4("pir4", SENSOR4_PIN, INPUT, true); // GPIO35 input only no PU/PD - using external PU resistor
-TDigitalPin Sensor5("pir5", SENSOR5_PIN, INPUT_PULLUP, true);
-TDigitalPin Sensor6("pir6", SENSOR6_PIN, INPUT_PULLUP, false);
-TDigitalPin Sensor7("pir7", SENSOR7_PIN, INPUT_PULLUP, true);
+TDigitalPin Sensor5("pirHW", SENSOR5_PIN, INPUT_PULLUP, false);
+TDigitalPin Sensor6("pirDR", SENSOR6_PIN, INPUT_PULLUP, false);
+TDigitalPin Sensor7("pirLR", SENSOR7_PIN, INPUT_PULLUP, false);
 TDigitalPin SensorDoor("door", DOOR_PIN, INPUT_PULLUP, false);
 
 //TButton OkButton(BUTTON_OK_PIN, INPUT_PULLDOWN);

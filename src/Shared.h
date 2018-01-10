@@ -16,9 +16,9 @@
 #include "RFID.h"
 #include "StateMachine.h"
 
-#define DOOR_PIN 32
+#define DOOR_PIN 26
 #define SENSOR7_PIN 25
-#define SENSOR6_PIN 26
+#define SENSOR6_PIN 32
 #define SENSOR5_PIN 33
 #define SENSOR4_PIN 35
 #define SENSOR3_PIN 34
@@ -37,6 +37,8 @@
 #define BUTTONLIGHT_PIN 13
 
 // these are actually set in User_Setup.h
+// if the TFT_eSPI.h library is updated then copy these values back to User_Setup.h
+//#define ILI9341_DRIVER
 #define TFT_MISO 19
 #define TFT_MOSI 23
 #define TFT_SCLK 18
