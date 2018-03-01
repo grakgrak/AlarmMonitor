@@ -3,3 +3,4 @@
 .vscode/c_cpp_properties.json
 /Sketchup/*.skb
 .vscode/launch.json
+.vscode/*.db

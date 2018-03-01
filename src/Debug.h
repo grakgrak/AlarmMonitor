@@ -42,7 +42,8 @@ class TDebug : public Print
             if (chr == '\n')
             {
                 addLine();
-                tft.print("-->                                       \r");
+                tft.print("-->                                                ");
+                tft.setCursor(0, _voffset);
             }
             else
                 tft.write(chr);

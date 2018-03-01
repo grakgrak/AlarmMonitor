@@ -9,7 +9,8 @@
             "target": "g:/HomeAutomation/AlarmMonitor/.pioenvs/esp32dev/firmware.elf",
             "gdbpath": "C:/Users/Grak/.platformio/penv/Scripts/piodebuggdb",
             "autorun": [ "source .pioinit" ],
-            "preLaunchTask": "PlatformIO: Pre-Debug"
+            "preLaunchTask": "PlatformIO: Pre-Debug",
+            "internalConsoleOptions": "openOnSessionStart"
         }
     ]
 }

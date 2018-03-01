@@ -14,9 +14,9 @@
 #define MQTT_CONNECT_TIMEOUT (WIFI_CONNECT_TIMEOUT + 10000)
 #define TASK_STACK_SIZE 3000
 //--------------------------------------------------------------------
-const char *ssid = "BTHub6-ZPR3";
-const char *password = "Hxv7Kx4raPV7";
-const char *hostname = "alarm-ota";
+const char *ssid = "BT-R2Z5";
+const char *password = "RNfmYVLu6HUX";
+const char *hostname = "Terrorem";
 
 
 #define RESET_REASON_COUNT  17
@@ -274,6 +274,8 @@ void init_OTA()
 
     ArduinoOTA.setPort(3232);
     ArduinoOTA.setHostname(hostname);
+    ArduinoOTA.setPassword("terrorem");
+
     ArduinoOTA.begin();
 }
 //--------------------------------------------------------------------

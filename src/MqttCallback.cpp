@@ -40,13 +40,17 @@ void mqttCallback(char *topic, byte *payload, unsigned len)
 
     StaticJsonBuffer<JSON_BUF_SIZE> jsonBuffer;
 
-    String value((const char *)payload, len);
+    char value[MQTT_MAX_PACKET_SIZE + 1];
 
-    Debug.printf("< %s:%s\n", topic, value.c_str());
+    memcpy((void *)value, (const void *)payload, len);
+    value[len] = '\0';
+    //String value((const char *)payload, len);
+
+    Debug.printf("< %s:%s\n", topic, value);
 
     if (strcmp(topic, SYS_SYNC_TIMESTAMP) == 0 || strcmp(topic, ALARM_SYNC_TIMESTAMP) == 0)
     {
-        updateSysTime((unsigned long)(atoll(value.c_str()) / 1000));    // convert ms to secs
+        updateSysTime((unsigned long)(atoll(value) / 1000));    // convert ms to secs
 
         PublishAlarmStatus();   // on time sync - publish our state
 
@@ -70,27 +74,27 @@ void mqttCallback(char *topic, byte *payload, unsigned len)
 
     if (strcmp(topic, CMD_ALARM_BEEP) == 0)
     {
-        JsonObject &root = jsonBuffer.parseObject(value.c_str());
+        JsonObject &root = jsonBuffer.parseObject(value);
         Beeper.Beep(root["on"], root["off"], root["repeat"]);
         return;
     }
 
     if (strcmp(topic, CMD_ALARM_TONE) == 0)
     {
-        JsonObject &root = jsonBuffer.parseObject(value.c_str());
+        JsonObject &root = jsonBuffer.parseObject(value);
         Beeper.Tone(root["freq"], root["duration"]);
         return;
     }
 
     if (strcmp(topic, CMD_ALARM_CODE_ADD) == 0)
     {
-        StateMachine.addCode(value.c_str());
+        StateMachine.addCode(value);
         return;
     }
 
     if (strcmp(topic, CMD_ALARM_CODE_DEL) == 0)
     {
-        StateMachine.deleteCode(value.c_str());
+        StateMachine.deleteCode(value);
         return;
     }
 
@@ -98,7 +102,7 @@ void mqttCallback(char *topic, byte *payload, unsigned len)
     {
         byte uid[4];
 
-        if (UidFromJson(jsonBuffer, uid, value.c_str()))
+        if (UidFromJson(jsonBuffer, uid, value))
             RFID.AddCard(uid);
         return;
     }
@@ -107,7 +111,7 @@ void mqttCallback(char *topic, byte *payload, unsigned len)
     {
         byte uid[4];
 
-        if (UidFromJson(jsonBuffer, uid, value.c_str()))
+        if (UidFromJson(jsonBuffer, uid, value))
             RFID.DeleteCard(uid);
         return;
     }
@@ -116,7 +120,7 @@ void mqttCallback(char *topic, byte *payload, unsigned len)
     {
         byte uid[4];
 
-        if (UidFromJson(jsonBuffer, uid, value.c_str()))
+        if (UidFromJson(jsonBuffer, uid, value))
             RFID.SetMasterCard(uid);
         return;
     }
