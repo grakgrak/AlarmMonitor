@@ -32,6 +32,7 @@ private:
   void disarm();
   void updateSensors();
   int anySensorTriggered();
+  void publishState(const char *stateName);
 
 public:
   TStateMachine();
@@ -39,10 +40,11 @@ public:
   void loop();
   bool isArmed() { return _state == TMain::ARMED; }
 
-  void publishState();
   bool validateCode(const char *code);
   void addCode(const char *code);
   void deleteCode(const char *code);
+
+  const char *stateName();
 };
 
 extern TStateMachine StateMachine;

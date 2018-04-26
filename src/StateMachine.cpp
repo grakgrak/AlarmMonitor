@@ -40,6 +40,11 @@ void TStateMachine::init()
             setState(TMain::ARMED);
 }
 //--------------------------------------------------------------------
+const char *TStateMachine::stateName()
+{ 
+    return TMain::Names[_state];
+}
+//--------------------------------------------------------------------
 void TStateMachine::setState(TMain::State state)
 {
     _stateChanged = _state != state;
@@ -47,8 +52,8 @@ void TStateMachine::setState(TMain::State state)
 
     if (_stateChanged)
     {
-        publishState();
-        MainScreen.stateMessage(TMain::Names[_state]);
+        publishState(stateName());
+        MainScreen.stateMessage(stateName());
     }
 }
 //--------------------------------------------------------------------
@@ -94,6 +99,8 @@ void TStateMachine::disarm()
 
     nvs_set_i8(_alarm_nvs, "isArmed", 0);
     nvs_commit(_alarm_nvs);
+
+    publishState("DIS");    // pseudo state to indicate that the alarm has been dis armed
 }
 //--------------------------------------------------------------------
 TMain::State TStateMachine::_SLEEPING(bool stateChanged)
@@ -360,9 +367,9 @@ TMain::State TStateMachine::_TRIGGERED(bool stateChanged)
 }
 
 //--------------------------------------------------------------------
-void TStateMachine::publishState()
+void TStateMachine::publishState(const char *stateName)
 {
-    Mqtt.publish(ALARM_CURRENT_STATE, TMain::Names[_state]);
+    Mqtt.publish(ALARM_CURRENT_STATE, stateName);
 }
 
 //--------------------------------------------------------------------

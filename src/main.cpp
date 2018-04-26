@@ -76,6 +76,8 @@ void PublishEnvironment()
     j["StartTime"] = startTime();
     j["IP"] = WiFi.localIP().toString();
     j["MQTT-IP"] = String(Mqtt.server());
+    j["AlarmState"] = StateMachine.stateName();
+    
     //j["Stack"] = uxTaskGetStackHighWaterMark(NULL);
     //j["Heap"] = ESP.getFreeHeap();
     //j["BeepStack"] = uxTaskGetStackHighWaterMark(_beepHandle);
@@ -100,8 +102,6 @@ void PublishAlarmStatus()
     PublishResetReason();
     PublishAllSensors();
     PublishEnvironment();
-
-    StateMachine.publishState();
 }
 
 //--------------------------------------------------------------------
