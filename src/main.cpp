@@ -8,7 +8,7 @@
 
 #include "Shared.h"
 
-#define VERSION "0.03"
+#define VERSION "1.0"
 
 #define WIFI_CONNECT_TIMEOUT 12000
 #define MQTT_CONNECT_TIMEOUT (WIFI_CONNECT_TIMEOUT + 10000)
