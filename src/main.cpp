@@ -74,8 +74,8 @@ void PublishEnvironment()
     j["Version"] = VERSION;
     j["UpTime"] = upTime();
     j["StartTime"] = startTime();
-    j["IP"] = WiFi.localIP().toString();
-    j["MQTT-IP"] = String(Mqtt.server());
+    //j["IP"] = WiFi.localIP().toString();
+    //j["MQTT-IP"] = String(Mqtt.server());
     j["AlarmState"] = StateMachine.stateName();
     
     //j["Stack"] = uxTaskGetStackHighWaterMark(NULL);
@@ -99,9 +99,9 @@ void PublishResetReason()
 //--------------------------------------------------------------------
 void PublishAlarmStatus()
 {
+    PublishEnvironment();
     PublishResetReason();
     PublishAllSensors();
-    PublishEnvironment();
 }
 
 //--------------------------------------------------------------------
