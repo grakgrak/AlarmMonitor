@@ -222,8 +222,8 @@
         "topic": "alarm/current/state",
         "qos": "0",
         "broker": "71ea5477.681dec",
-        "x": 110,
-        "y": 280,
+        "x": 130,
+        "y": 340,
         "wires": [
             [
                 "8862c25e.142e6",
@@ -253,8 +253,8 @@
         "offvalueType": "str",
         "officon": "",
         "offcolor": "",
-        "x": 690,
-        "y": 500,
+        "x": 710,
+        "y": 560,
         "wires": [
             []
         ]
@@ -281,8 +281,8 @@
         "offvalueType": "str",
         "officon": "",
         "offcolor": "",
-        "x": 690,
-        "y": 780,
+        "x": 710,
+        "y": 840,
         "wires": [
             []
         ]
@@ -296,11 +296,12 @@
         "qos": "0",
         "broker": "71ea5477.681dec",
         "x": 120,
-        "y": 100,
+        "y": 140,
         "wires": [
             [
                 "e0f29ddd.b9412",
-                "196c0db2.e3b8e2"
+                "196c0db2.e3b8e2",
+                "13e02b39.e16175"
             ]
         ]
     },
@@ -316,7 +317,7 @@
         "label": "Up Time",
         "format": "{{msg.payload}}",
         "layout": "row-spread",
-        "x": 640,
+        "x": 660,
         "y": 40,
         "wires": []
     },
@@ -379,8 +380,8 @@
         "topic": "alarm/rfid/card",
         "qos": "0",
         "broker": "71ea5477.681dec",
-        "x": 90,
-        "y": 820,
+        "x": 110,
+        "y": 880,
         "wires": [
             [
                 "7863496f.f9b308"
@@ -409,8 +410,8 @@
         "offvalueType": "str",
         "officon": "",
         "offcolor": "",
-        "x": 650,
-        "y": 820,
+        "x": 670,
+        "y": 880,
         "wires": [
             []
         ]
@@ -437,8 +438,8 @@
         "offvalueType": "str",
         "officon": "",
         "offcolor": "",
-        "x": 690,
-        "y": 540,
+        "x": 710,
+        "y": 600,
         "wires": [
             []
         ]
@@ -465,8 +466,8 @@
         "offvalueType": "str",
         "officon": "",
         "offcolor": "",
-        "x": 690,
-        "y": 580,
+        "x": 710,
+        "y": 640,
         "wires": [
             []
         ]
@@ -493,8 +494,8 @@
         "offvalueType": "str",
         "officon": "",
         "offcolor": "",
-        "x": 690,
-        "y": 620,
+        "x": 710,
+        "y": 680,
         "wires": [
             []
         ]
@@ -521,8 +522,8 @@
         "offvalueType": "str",
         "officon": "",
         "offcolor": "",
-        "x": 690,
-        "y": 660,
+        "x": 710,
+        "y": 720,
         "wires": [
             []
         ]
@@ -549,8 +550,8 @@
         "offvalueType": "str",
         "officon": "",
         "offcolor": "",
-        "x": 690,
-        "y": 700,
+        "x": 710,
+        "y": 760,
         "wires": [
             []
         ]
@@ -577,8 +578,8 @@
         "offvalueType": "str",
         "officon": "",
         "offcolor": "",
-        "x": 690,
-        "y": 740,
+        "x": 710,
+        "y": 800,
         "wires": [
             []
         ]
@@ -589,8 +590,8 @@
         "z": "a520e472.c45e18",
         "mydb": "f0dbaae0.1f2738",
         "name": "SensorData",
-        "x": 570,
-        "y": 900,
+        "x": 590,
+        "y": 960,
         "wires": [
             [
                 "a13c902e.4938"
@@ -610,8 +611,8 @@
         "storeOutMessages": true,
         "fwdInMessages": true,
         "templateScope": "local",
-        "x": 760,
-        "y": 940,
+        "x": 780,
+        "y": 1000,
         "wires": [
             []
         ]
@@ -624,8 +625,8 @@
         "topic": "alarm/status/env",
         "qos": "0",
         "broker": "71ea5477.681dec",
-        "x": 100,
-        "y": 400,
+        "x": 120,
+        "y": 460,
         "wires": [
             [
                 "736c0a6c.43d034"
@@ -644,8 +645,8 @@
         "label": "Start Time",
         "format": "{{msg.payload.StartTime}}",
         "layout": "row-spread",
-        "x": 710,
-        "y": 400,
+        "x": 730,
+        "y": 460,
         "wires": []
     },
     {
@@ -656,8 +657,8 @@
         "topic": "sys/login/name",
         "qos": "0",
         "broker": "71ea5477.681dec",
-        "x": 90,
-        "y": 1020,
+        "x": 110,
+        "y": 1080,
         "wires": [
             [
                 "de24bfe0.6eefa"
@@ -670,8 +671,8 @@
         "z": "a520e472.c45e18",
         "mydb": "f0dbaae0.1f2738",
         "name": "SensorData",
-        "x": 470,
-        "y": 1000,
+        "x": 490,
+        "y": 1060,
         "wires": [
             [
                 "5fe7145e.8a4a7c",
@@ -687,8 +688,8 @@
         "func": "\n//msg.topic=\"INSERT INTO logins(topic, payload, currentdate, currenttime)\"\n//    + values('\" + msg.topic + \"', '\" + msg.payload + \"', date('now'), time('now'))\";\n    \n    \n// String.prototype.format = function() {\n//     var formatted = this;\n//     for( var arg in arguments ) {\n//         formatted = formatted.replace(\"{\" + arg + \"}\", arguments[arg]);\n//     }\n//     return formatted;\n// };\n\n//sql=\"INSERT INTO logins(topic, payload, currentdate, currenttime) values('{0}', '{1}', date('now'), time('now'))\";\n//msg.topic = sql.format(msg.topic, msg.payload);\n\nmsg.payload = [msg.topic,msg.payload];\nmsg.topic = \"INSERT INTO logins(topic, payload, currentdate, currenttime)\"\n    + \"values(?, ?, date('now'), time('now'))\";\n    \nreturn msg;",
         "outputs": 1,
         "noerr": 0,
-        "x": 280,
-        "y": 1000,
+        "x": 300,
+        "y": 1060,
         "wires": [
             [
                 "c732f769.062718"
@@ -703,8 +704,8 @@
         "func": "msg.topic = \"select currentdate, count(*) as count from logins\"\n        + \" group by currentdate order by currentdate desc limit 7\"\n        \nreturn msg;",
         "outputs": 1,
         "noerr": 0,
-        "x": 370,
-        "y": 900,
+        "x": 390,
+        "y": 960,
         "wires": [
             [
                 "be8d8b6f.7218d8"
@@ -717,8 +718,8 @@
         "z": "a520e472.c45e18",
         "mydb": "f0dbaae0.1f2738",
         "name": "SensorData",
-        "x": 570,
-        "y": 1100,
+        "x": 590,
+        "y": 1160,
         "wires": [
             [
                 "54a6cc1b.436e34"
@@ -738,8 +739,8 @@
         "storeOutMessages": true,
         "fwdInMessages": true,
         "templateScope": "local",
-        "x": 760,
-        "y": 1060,
+        "x": 780,
+        "y": 1120,
         "wires": [
             []
         ]
@@ -752,8 +753,8 @@
         "func": "msg.topic = \"select currentdate, currenttime from logins\"\n        + \" where currentdate in (select max(currentdate) from logins)\"\n        + \" order by currenttime desc\";\n        \nreturn msg;",
         "outputs": 1,
         "noerr": 0,
-        "x": 370,
-        "y": 1100,
+        "x": 390,
+        "y": 1160,
         "wires": [
             [
                 "fc9c4bfb.4353b8"
@@ -768,8 +769,8 @@
         "topic": "#",
         "qos": "2",
         "broker": "71ea5477.681dec",
-        "x": 70,
-        "y": 1180,
+        "x": 90,
+        "y": 1240,
         "wires": [
             [
                 "83adb6aa.8430b8",
@@ -785,8 +786,8 @@
         "func": "if( msg.topic == \"alarm/heartbeat/uptime\")\n    return null;\nif(msg.topic.indexOf( \"tele/\") === 0)    // filter out telemetry messages\n    return null;\n\ndate = new Date();\nmsg.time = date.toTimeString().split(' ')[0];\n\n// initialise the counter to 0 if it doesn't exist already\nvar text = context.get('text') || [];\n\ntext.push(msg);\n\nif (text.length > 30){\n    text.shift();\n    text.length = 30;\n} \n\n// store the value back\ncontext.set('text',text);\n// make it part of the outgoing msg object\nmsg = {};\nmsg.payload = text;\nreturn msg;\n",
         "outputs": 1,
         "noerr": 0,
-        "x": 350,
-        "y": 1180,
+        "x": 370,
+        "y": 1240,
         "wires": [
             [
                 "d19ab53e.81cd18"
@@ -806,8 +807,8 @@
         "storeOutMessages": true,
         "fwdInMessages": true,
         "templateScope": "local",
-        "x": 740,
-        "y": 1180,
+        "x": 760,
+        "y": 1240,
         "wires": [
             []
         ]
@@ -824,8 +825,8 @@
         "label": "Alarm State:",
         "format": "{{msg.payload}}",
         "layout": "row-spread",
-        "x": 710,
-        "y": 280,
+        "x": 730,
+        "y": 340,
         "wires": []
     },
     {
@@ -837,8 +838,8 @@
         "secure": true,
         "name": "graham.knight@lastdayofmay.co.uk",
         "dname": "",
-        "x": 880,
-        "y": 240,
+        "x": 900,
+        "y": 300,
         "wires": []
     },
     {
@@ -849,7 +850,7 @@
         "func": "date = new Date(msg.payload * 1000);\n\n//msg.payload = date.toTimeString().split(' ')[0];\n\nvar msecPerMinute = 1000 * 60;  \nvar msecPerHour = msecPerMinute * 60;  \nvar msecPerDay = msecPerHour * 24;  \nvar interval = msg.payload * 1000;\n\nvar days = Math.floor(interval / msecPerDay );  \ninterval = interval - (days * msecPerDay );  \n\n// Calculate the hours, minutes, and seconds.  \nvar hours = Math.floor(interval / msecPerHour );  \ninterval = interval - (hours * msecPerHour );  \n\nvar minutes = Math.floor(interval / msecPerMinute );  \ninterval = interval - (minutes * msecPerMinute );  \n\nvar seconds = Math.floor(interval / 1000 );  \n\nmsg.payload = util.format(\"%d days %d:%d:%d\", days, hours, minutes, seconds);\n//msg.payload = days + \" days \" + hours + \":\" + minutes + \":\" + seconds;\n\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
-        "x": 350,
+        "x": 370,
         "y": 40,
         "wires": [
             [
@@ -863,8 +864,8 @@
         "z": "a520e472.c45e18",
         "name": "",
         "pretty": false,
-        "x": 310,
-        "y": 400,
+        "x": 330,
+        "y": 460,
         "wires": [
             [
                 "c206e618.9f6478",
@@ -881,8 +882,8 @@
         "func": "date = new Date(msg.payload.StartTime * 1000);\n\nmsg.payload.StartTime = date.toDateString() + \" \" +  date.toTimeString().split(' ')[0];\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
-        "x": 490,
-        "y": 400,
+        "x": 510,
+        "y": 460,
         "wires": [
             [
                 "2186b0d3.c9bac"
@@ -1023,8 +1024,8 @@
         "func": "var dt = new Date();    // get the current date and time\n\n// edge detect a state change\nif( context.get(\"lastState\") == msg.payload)\n    return null;\n    \ncontext.set(\"lastState\", msg.payload);\n\n// if a TRIGGERED event\nif( msg.payload == \"TR\")\n{\n    msg.payload = \"Triggered at: \" + dt.toDateString() + \" \" + dt.toTimeString();\n    return msg;\n}\n\nif( msg.payload == \"ARM\")\n{\n    msg.payload = \"Armed at: \" + dt.toDateString() + \" \" + dt.toTimeString();\n    return msg;\n}\n\nif( msg.payload == \"DIS\")\n{\n    msg.payload = \"Disarmed at: \" + dt.toDateString() + \" \" + dt.toTimeString();\n    return msg;\n}\n\n\nreturn null;",
         "outputs": 1,
         "noerr": 0,
-        "x": 500,
-        "y": 240,
+        "x": 520,
+        "y": 300,
         "wires": [
             [
                 "cd60c0db.ac853",
@@ -1045,8 +1046,8 @@
         "units": "s",
         "reset": "",
         "name": "",
-        "x": 330,
-        "y": 120,
+        "x": 370,
+        "y": 100,
         "wires": [
             [
                 "216931a3.1e6f5e",
@@ -1062,8 +1063,8 @@
         "topic": "alarm/sensor/#",
         "qos": "0",
         "broker": "71ea5477.681dec",
-        "x": 100,
-        "y": 640,
+        "x": 120,
+        "y": 700,
         "wires": [
             [
                 "ac830a55.998c28"
@@ -1078,8 +1079,8 @@
         "func": "flow.set(msg.topic, msg.payload);\n\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
-        "x": 290,
-        "y": 640,
+        "x": 310,
+        "y": 700,
         "wires": [
             [
                 "44c56575.88469c"
@@ -1137,8 +1138,8 @@
         ],
         "checkall": "true",
         "outputs": 8,
-        "x": 470,
-        "y": 640,
+        "x": 490,
+        "y": 700,
         "wires": [
             [
                 "a1a4c642.2ef728"
@@ -1171,11 +1172,11 @@
         "type": "function",
         "z": "a520e472.c45e18",
         "name": "Heartbeat message",
-        "func": "var dt = new Date();    // get the current date and time\n\nvar text = \"No Heartbeat seen at: \" + dt.toDateString() + \" \" + dt.toTimeString();\n\nmsg.payload = text;\n\nreturn msg;",
+        "func": "if( msg.payload == \"NO ALARM\")\n{\n    context.set(\"IsDown\", true);    // flag the alarm is down\n\n    var dt = new Date();    // get the current date and time\n\n    var text = \"No Heartbeat seen at: \" + dt.toDateString() + \" \" + dt.toTimeString();\n\n    msg.payload = text;\n\n    return msg;\n}\n\nvar isDown = context.get(\"IsDown\") || false;\n\nif( isDown )\n{\n    context.set(\"IsDown\", false);    // flag the alarm is back\n\n    var dt = new Date();    // get the current date and time\n\n    var text = \"Heartbeat back at: \" + dt.toDateString() + \" \" + dt.toTimeString();\n\n    msg.payload = text;\n    \n    return msg;\n}\n\nreturn null;",
         "outputs": 1,
         "noerr": 0,
-        "x": 550,
-        "y": 120,
+        "x": 570,
+        "y": 160,
         "wires": [
             [
                 "cd60c0db.ac853",
@@ -1299,8 +1300,8 @@
         "qos": "",
         "retain": "true",
         "broker": "71ea5477.681dec",
-        "x": 650,
-        "y": 1380,
+        "x": 670,
+        "y": 1440,
         "wires": []
     },
     {
@@ -1317,8 +1318,8 @@
         "mode": "text",
         "delay": "300",
         "topic": "message",
-        "x": 160,
-        "y": 1320,
+        "x": 180,
+        "y": 1380,
         "wires": [
             [
                 "a41942a5.f0f86"
@@ -1342,8 +1343,8 @@
         "payload": "submit",
         "payloadType": "str",
         "topic": "submit",
-        "x": 100,
-        "y": 1420,
+        "x": 120,
+        "y": 1480,
         "wires": [
             [
                 "a41942a5.f0f86"
@@ -1358,8 +1359,8 @@
         "func": "context.msg = context.msg || {};\n\nswitch (msg.topic){\n    case 'message':\n        context.msg.payload = msg.payload;\n        break;\n    case 'topic':\n        context.msg.topic = msg.payload;\n        break;\n    case 'submit':\n        if(context.msg.topic){\n            return context.msg;\n        }else{\n            context.msg.topic=\"#\"; // set default topic\n            return context.msg;\n        }\n}",
         "outputs": "1",
         "noerr": 0,
-        "x": 370,
-        "y": 1340,
+        "x": 390,
+        "y": 1400,
         "wires": [
             [
                 "9563d911.4155e8",
@@ -1375,8 +1376,8 @@
         "active": false,
         "console": "false",
         "complete": "true",
-        "x": 660,
-        "y": 1300,
+        "x": 680,
+        "y": 1360,
         "wires": []
     },
     {
@@ -1393,8 +1394,8 @@
         "mode": "text",
         "delay": 300,
         "topic": "topic",
-        "x": 170,
-        "y": 1280,
+        "x": 190,
+        "y": 1340,
         "wires": [
             [
                 "a41942a5.f0f86"
@@ -1418,8 +1419,8 @@
         "payload": "",
         "payloadType": "str",
         "topic": "",
-        "x": 90,
-        "y": 1380,
+        "x": 110,
+        "y": 1440,
         "wires": [
             [
                 "96e3cdf1.224d4",
@@ -1438,8 +1439,8 @@
         "repeat": "",
         "crontab": "",
         "once": true,
-        "x": 90,
-        "y": 960,
+        "x": 110,
+        "y": 1020,
         "wires": [
             [
                 "5fe7145e.8a4a7c",
@@ -1456,8 +1457,8 @@
         "ret": "obj",
         "url": "https://api.twilio.com/2010-04-01/Accounts/ACf098405324979f56c86e906441c25562/Messages.json",
         "tls": "",
-        "x": 1010,
-        "y": 180,
+        "x": 1030,
+        "y": 240,
         "wires": [
             [
                 "79265a.421db9a8"
@@ -1472,8 +1473,8 @@
         "func": "\nvar text = msg.payload;\nmsg.payload = {\n    'To': '+447940773737',\n    'From': '+441268833034',\n    'Body': text\n};\nmsg.headers = {'content-type':'application/x-www-form-urlencoded'};\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
-        "x": 820,
-        "y": 180,
+        "x": 840,
+        "y": 240,
         "wires": [
             []
         ]
@@ -1486,8 +1487,8 @@
         "active": false,
         "console": "false",
         "complete": "false",
-        "x": 1030,
-        "y": 100,
+        "x": 1050,
+        "y": 160,
         "wires": []
     },
     {
@@ -1498,8 +1499,8 @@
         "topic": "sys/login/name",
         "qos": "0",
         "broker": "71ea5477.681dec",
-        "x": 70,
-        "y": 180,
+        "x": 90,
+        "y": 240,
         "wires": [
             [
                 "550a9f6d.8fca"
@@ -1514,8 +1515,8 @@
         "topic": "alarm/status",
         "qos": "0",
         "broker": "71ea5477.681dec",
-        "x": 90,
-        "y": 340,
+        "x": 110,
+        "y": 400,
         "wires": [
             [
                 "1b512d22.4ecaa3"
@@ -1534,8 +1535,8 @@
         "label": "",
         "format": "{{msg.payload}}",
         "layout": "row-spread",
-        "x": 690,
-        "y": 340,
+        "x": 710,
+        "y": 400,
         "wires": []
     },
     {
@@ -1546,8 +1547,8 @@
         "func": "var dt = new Date();    // get the current date and time\n\nvar text = msg.payload + \" login at: \" + dt.toDateString() + \" \" + dt.toTimeString();\n\nmsg.payload = text;\n\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
-        "x": 480,
-        "y": 180,
+        "x": 500,
+        "y": 240,
         "wires": [
             [
                 "53e23fe2.070ba"
@@ -1586,8 +1587,8 @@
         "label": "Version",
         "format": "{{msg.payload.Version}}",
         "layout": "row-spread",
-        "x": 700,
-        "y": 460,
+        "x": 720,
+        "y": 520,
         "wires": []
     },
     {
@@ -1598,8 +1599,8 @@
         "active": true,
         "console": "false",
         "complete": "false",
-        "x": 460,
-        "y": 500,
+        "x": 480,
+        "y": 560,
         "wires": []
     },
     {
@@ -1610,8 +1611,8 @@
         "active": false,
         "console": "false",
         "complete": "false",
-        "x": 340,
-        "y": 1240,
+        "x": 360,
+        "y": 1300,
         "wires": []
     }
 ]
