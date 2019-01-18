@@ -65,9 +65,9 @@ void mqttCallback(char *topic, byte *payload, unsigned len)
 
     if (strcmp(topic, CMD_ALARM_BACKLIGHT) == 0)
     {
-        if (value =="on")
+        if (strcmp((char *)value, "on") == 0 )
             setBacklight(true);
-        if (value == "off")
+        if (strcmp((char *)value, "off") == 0 )
             setBacklight(false);
         return;
     }

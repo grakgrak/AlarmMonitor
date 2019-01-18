@@ -69,7 +69,7 @@ void TBeeper::setToneState(TState state)
 //--------------------------------------------------------------------
 void TBeeper::toneLoop()
 {
-    switch (_toneState)
+    switch ((int)_toneState)
     {
     case IDLE:
         break;
@@ -130,7 +130,7 @@ void TBeeper::setBeepState(TState state)
 //--------------------------------------------------------------------
 void TBeeper::beepLoop()
 {
-    switch (_beepState)
+    switch ((int)_beepState)
     {
     case IDLE:
         break;

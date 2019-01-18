@@ -100,7 +100,7 @@ bool TConfigScreen::loop()
     static TConfig::State _state = TConfig::START; // The current state
     static bool _newState;                         // true the first time we change to a state
 
-    TConfig::State nextState;
+    TConfig::State nextState = _state;
     switch (_state)
     {
     case TConfig::START:

@@ -1,3 +1,4 @@
+#include "Wire.h"
 #include <Arduino.h>
 #include <WiFi.h>
 #include <SPI.h>
@@ -5,10 +6,11 @@
 #include <rom/rtc.h>
 #include <WiFiUdp.h>    // https://github.com/esp8266/Arduino/blob/master/libraries/ESP8266WiFi/src/WiFiUdp.h
 #include <ArduinoOTA.h> // https://github.com/esp8266/Arduino/blob/master/libraries/ArduinoOTA/ArduinoOTA.h
+#include "Max44009.h"
 
 #include "Shared.h"
 
-#define VERSION "1.0"
+#define VERSION "1.1"
 
 #define WIFI_CONNECT_TIMEOUT 12000
 #define MQTT_CONNECT_TIMEOUT (WIFI_CONNECT_TIMEOUT + 10000)
@@ -43,6 +45,7 @@ const char *_ResetReasons[RESET_REASON_COUNT] = {
 //--------------------------------------------------------------------
 // Global Instances
 //--------------------------------------------------------------------
+Max44009 *myLux = NULL;
 TFT_eSPI tft;
 TaskHandle_t _beepHandle;
 
@@ -303,6 +306,8 @@ void setup()
 
     StateMachine.init();
 
+    myLux = new Max44009(0x4A, SDA_PIN, CLK_PIN);
+
     Debug.println("Setup complete.");
     Debug.ShowOnTFT(false);
     tft.fillScreen(TFT_BLACK);
@@ -316,8 +321,17 @@ void PeriodicAction(unsigned long now)
     if ((now - lastHeartbeat) >= 1000) // check for 1 second passing
     {
         if (lastHeartbeat != 0)
+        {
             Mqtt.publish(ALARM_HEARTBEAT_UPTIME, String(upTime())); // tell the world we are still alive
+
+            if( myLux != NULL)
+            {
+                if (myLux->getError() == 0)
+                    Mqtt.publish(ALARM_CURRENT_LUX, String(myLux->getLux()));   // publis the light level
+            }
+        }
         lastHeartbeat = now;
+
     }
 }
 

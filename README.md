@@ -1,1 +1,1 @@
-AlarmMonitor - Home build alarm panel using ESP32 and MQTT
+LatticeCounter - Simple counter for Lattice training, using ESP8266

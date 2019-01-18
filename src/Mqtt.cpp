@@ -9,6 +9,7 @@ const char *CMD_ALARM_HASH = "cmd/alarm/#";
 // publish topics
 const char *SYS_LOGIN_NAME = "sys/login/name";
 const char *ALARM_STATUS = "alarm/status";
+const char *ALARM_CURRENT_LUX = "alarm/current/lux";
 const char *ALARM_CURRENT_STATE = "alarm/current/state";
 const char *ALARM_STATUS_ENV = "alarm/status/env";
 const char *ALARM_STATUS_RESET = "alarm/status/reset";
@@ -42,14 +43,17 @@ bool TMqtt::init(MQTT_CALLBACK_SIGNATURE)
     _mqttClient.setServer(_mqttServer, _mqttPort);
     ::callback = callback;
     _mqttClient.setCallback(callback);
+    return true;
 }
 //--------------------------------------------------------------------
 void TMqtt::publish(const char *topic, const char *payload)
 {
-    if (strcmp(topic, ALARM_HEARTBEAT_UPTIME) != 0) // dont log the heatbeat
-    {
-        Debug.printf("> %s:%s\n", topic, payload);
-    }
+    if(strcmp(topic, ALARM_CURRENT_LUX) != 0)   // dont log the LUX
+        if (strcmp(topic, ALARM_HEARTBEAT_UPTIME) != 0) // dont log the heatbeat
+        {
+            Debug.printf("> %s:%s\n", topic, payload);
+        }
+
     if (_mqttClient.connected())
         if (_mqttClient.publish(topic, payload) == false)
         {

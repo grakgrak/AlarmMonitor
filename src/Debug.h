@@ -48,6 +48,7 @@ class TDebug : public Print
             else
                 tft.write(chr);
         }
+        return 1;
     }
 };
 

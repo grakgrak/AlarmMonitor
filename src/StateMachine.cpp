@@ -113,19 +113,31 @@ TMain::State TStateMachine::_SLEEPING(bool stateChanged)
     }
 
     if (MainScreen.getTouch())
+    {
+        Serial.println("Woke by screen touch");
         return TMain::WAIT_FOR_CMD;
+    }
 
     if (RFID.IsCardPresent() != 0)
+    {
+        Serial.println("Woke by RFID");
         return TMain::WAIT_FOR_CMD;
+    }
 
     if (isBacklightOn())
+    {
+        Serial.println("Woke by Backlight");
         return TMain::WAIT_FOR_CMD;
+    }
 
     //if (CheckForButtonPress() != VOID_BUTTON)
         //return TMain::WAIT_FOR_CMD;
 
     if (SensorDoor.IsTriggered()) // if DOOR open goto EXIT_HOUSE
+    {
+        Serial.println("Woke by Door");
         return TMain::WAIT_FOR_CMD;
+    }
 
     return TMain::SLEEPING;
 }

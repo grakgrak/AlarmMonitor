@@ -32,8 +32,11 @@
 #define TONE_PIN 4
 #define BEEP_PIN 15
 
-#define BUTTON_OK_PIN 14
-#define BUTTON_CANCEL_PIN 12
+#define CLK_PIN 14
+#define SDA_PIN 27
+
+//#define BUTTON_OK_PIN 14
+//#define BUTTON_CANCEL_PIN 12
 #define BUTTONLIGHT_PIN 13
 
 // these are actually set in User_Setup.h
