@@ -7,6 +7,8 @@
 #define ADDCARD_KEY 1
 #define DELCARD_KEY 2
 #define WALKTEST_KEY 3
+#define DEBUG_KEY 4
+#define REBOOT_KEY 5
 
 namespace TConfig
 {

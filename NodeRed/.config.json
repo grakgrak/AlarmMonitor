@@ -583,7 +583,7 @@
   },
   "node-red-dashboard": {
    "name": "node-red-dashboard",
-   "version": "2.6.1",
+   "version": "2.9.8",
    "local": true,
    "nodes": {
     "ui_base": {

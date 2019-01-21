@@ -45,15 +45,16 @@ const char *TStateMachine::stateName()
     return TMain::Names[_state];
 }
 //--------------------------------------------------------------------
-void TStateMachine::setState(TMain::State state)
+void TStateMachine::setState(TMain::State toState)
 {
-    _stateChanged = _state != state;
-    _state = state;
+    _stateChanged = _state != toState;
+    _state = toState;
 
     if (_stateChanged)
     {
         publishState(stateName());
         MainScreen.stateMessage(stateName());
+        Debug.printf("State = %s\n", stateName());
     }
 }
 //--------------------------------------------------------------------
@@ -114,19 +115,19 @@ TMain::State TStateMachine::_SLEEPING(bool stateChanged)
 
     if (MainScreen.getTouch())
     {
-        Serial.println("Woke by screen touch");
+        Debug.println("Woke by screen touch");
         return TMain::WAIT_FOR_CMD;
     }
 
     if (RFID.IsCardPresent() != 0)
     {
-        Serial.println("Woke by RFID");
+        Debug.println("Woke by RFID");
         return TMain::WAIT_FOR_CMD;
     }
 
     if (isBacklightOn())
     {
-        Serial.println("Woke by Backlight");
+        Debug.println("Woke by Backlight");
         return TMain::WAIT_FOR_CMD;
     }
 
@@ -135,7 +136,7 @@ TMain::State TStateMachine::_SLEEPING(bool stateChanged)
 
     if (SensorDoor.IsTriggered()) // if DOOR open goto EXIT_HOUSE
     {
-        Serial.println("Woke by Door");
+        Debug.println("Woke by Door");
         return TMain::WAIT_FOR_CMD;
     }
 

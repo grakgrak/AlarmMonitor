@@ -1,13 +1,14 @@
 #include "ConfigScreen.h"
 #include "Shared.h"
 
-#define CONFIGSCREEN_KEYCOUNT 4
+#define CONFIGSCREEN_KEYCOUNT 5
 TKeyPad configKeys[] =
     {
-        TKeyPad(10, 10, 180, 50, TFT_GREENYELLOW, "Add RFID Card", ADDCARD_KEY),
-        TKeyPad(10, 70, 180, 50, TFT_GREENYELLOW, "Del RFID Card", DELCARD_KEY),
-        TKeyPad(10, 130, 140, 50, TFT_GREENYELLOW, "WalkTest", WALKTEST_KEY),
-        TKeyPad(200, 130, 100, 50, TFT_ORANGE, "Cancel", CANCEL_KEY)
+        TKeyPad(10, 10, 180, 50, TFT_GREENYELLOW, "Add RFID Tag", ADDCARD_KEY),
+        TKeyPad(10, 70, 180, 50, TFT_GREENYELLOW, "Del RFID Tag", DELCARD_KEY),
+        TKeyPad(10, 130, 120, 50, TFT_GREENYELLOW, "Walk Test", WALKTEST_KEY),
+        TKeyPad(10, 190, 100, 50, TFT_RED, "Reboot", REBOOT_KEY),
+        TKeyPad(160, 190, 95, 50, TFT_ORANGE, "Cancel", CANCEL_KEY),
     };
 
 //--------------------------------------------------------------------
@@ -46,6 +47,11 @@ TConfig::State TConfigScreen::_WAIT_FOR_CMD(bool newState)
         case DELCARD_KEY:
             message("Present Card");
             return TConfig::WAIT_FOR_DELETE;
+        case REBOOT_KEY:
+            esp_restart();
+            //esp_sleep_enable_timer_wakeup(4 * 1000 * 1000);   // sleep for 2 seconds
+            //esp_deep_sleep_start();
+            break;
         case WALKTEST_KEY:
             return TConfig::WALKTEST;
     }

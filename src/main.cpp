@@ -143,19 +143,19 @@ bool isWiFiConnected(int timeout)
 //--------------------------------------------------------------------
 void init_nvs()
 {
-    Serial.println("Init nvs.");
+    Debug.println("Init nvs.");
     // initialise the NVS
     switch (nvs_flash_init())
     {
     case ESP_OK:
         break;
     case ESP_ERR_NVS_NO_FREE_PAGES:
-        Serial.println("nvs has been erased.");
+        Debug.println("nvs has been erased.");
         nvs_flash_erase();
         nvs_flash_init();
         break;
     default:
-        Serial.println("Failed to init the nvs");
+        Debug.println("Failed to init the nvs");
         break;
     }
 }
@@ -163,7 +163,7 @@ void init_nvs()
 //--------------------------------------------------------------------
 void init_tft()
 {
-    Serial.println("Init TFT.");
+    Debug.println("Init TFT.");
 
     // Setup the TFT display
     tft.init();
@@ -286,7 +286,7 @@ void setup()
 {
     Serial.begin(115200); // for debug
     delay(10);
-    Serial.println("Alarm Starting");
+    Debug.println("Alarm Starting");
 
     // setup the backlight pin
     pinMode(BACKLIGHT_PIN, OUTPUT);
@@ -309,8 +309,13 @@ void setup()
     myLux = new Max44009(0x4A, SDA_PIN, CLK_PIN);
 
     Debug.println("Setup complete.");
-    Debug.ShowOnTFT(false);
-    tft.fillScreen(TFT_BLACK);
+    
+    if (SensorDoor.IsTriggered() == false)  // stay in debug mode if the door is open
+    {
+        Debug.ShowOnTFT(false);
+
+        tft.fillScreen(TFT_BLACK);
+    }
 }
 
 //--------------------------------------------------------------------
@@ -324,14 +329,14 @@ void PeriodicAction(unsigned long now)
         {
             Mqtt.publish(ALARM_HEARTBEAT_UPTIME, String(upTime())); // tell the world we are still alive
 
+            // send out the ambient light level
             if( myLux != NULL)
             {
                 if (myLux->getError() == 0)
-                    Mqtt.publish(ALARM_CURRENT_LUX, String(myLux->getLux()));   // publis the light level
+                    Mqtt.publish(ALARM_CURRENT_LUX, String(myLux->getLux()));   // publish the light level
             }
         }
         lastHeartbeat = now;
-
     }
 }
 
