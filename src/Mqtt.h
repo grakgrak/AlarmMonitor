@@ -8,6 +8,7 @@
 extern const char *SYS_LOGIN_NAME;
 extern const char *ALARM_CURRENT_LUX;
 extern const char *ALARM_CURRENT_STATE;
+extern const char *ALARM_HEARTBEAT;
 extern const char *ALARM_HEARTBEAT_UPTIME;
 extern const char *ALARM_RFID_CARD;
 extern const char *ALARM_RFID_COUNT;

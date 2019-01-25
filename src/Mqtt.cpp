@@ -13,6 +13,7 @@ const char *ALARM_CURRENT_LUX = "alarm/current/lux";
 const char *ALARM_CURRENT_STATE = "alarm/current/state";
 const char *ALARM_STATUS_ENV = "alarm/status/env";
 const char *ALARM_STATUS_RESET = "alarm/status/reset";
+const char *ALARM_HEARTBEAT = "alarm/heartbeat";
 const char *ALARM_HEARTBEAT_UPTIME = "alarm/heartbeat/uptime";
 const char *ALARM_RFID_UID = "alarm/rfid/uid";
 const char *ALARM_RFID_CARD = "alarm/rfid/card";

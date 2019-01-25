@@ -309,13 +309,9 @@ void setup()
     myLux = new Max44009(0x4A, SDA_PIN, CLK_PIN);
 
     Debug.println("Setup complete.");
-    
-    if (SensorDoor.IsTriggered() == false)  // stay in debug mode if the door is open
-    {
-        Debug.ShowOnTFT(false);
+    Debug.ShowOnTFT(false);
 
-        tft.fillScreen(TFT_BLACK);
-    }
+    tft.fillScreen(TFT_BLACK);
 }
 
 //--------------------------------------------------------------------
@@ -327,14 +323,24 @@ void PeriodicAction(unsigned long now)
     {
         if (lastHeartbeat != 0)
         {
-            Mqtt.publish(ALARM_HEARTBEAT_UPTIME, String(upTime())); // tell the world we are still alive
+            StaticJsonBuffer<200> jsonBuffer;
+            JsonObject &j = jsonBuffer.createObject();
 
             // send out the ambient light level
-            if( myLux != NULL)
-            {
-                if (myLux->getError() == 0)
-                    Mqtt.publish(ALARM_CURRENT_LUX, String(myLux->getLux()));   // publish the light level
-            }
+            if( myLux != NULL && (myLux->getError() == 0))
+                j["lux"] = myLux->getLux();
+            j["UpTime"] = upTime();
+
+            Mqtt.publish(ALARM_HEARTBEAT, j);
+
+            // send out the ambient light level
+            // if( myLux != NULL)
+            // {
+            //     if (myLux->getError() == 0)
+            //         Mqtt.publish(ALARM_CURRENT_LUX, String(myLux->getLux()));   // publish the light level
+            // }
+
+            // Mqtt.publish(ALARM_HEARTBEAT_UPTIME, String(upTime())); // tell the world we are still alive
         }
         lastHeartbeat = now;
     }
