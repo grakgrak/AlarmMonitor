@@ -76,4 +76,6 @@ extern void setBacklight(bool state);
 extern int checkForKeyPress(const TKeyPad keys[], int keyCount);
 extern void PublishAlarmStatus();
 
+extern bool getTouch(uint16_t *x, uint16_t *y);
+
 #endif //SHARED_H

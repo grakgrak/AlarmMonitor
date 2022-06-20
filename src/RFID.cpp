@@ -98,25 +98,24 @@ void TRFID::AddCard()
 //--------------------------------------------------------------------
 void TRFID::PublishStatus()
 {
-    StaticJsonBuffer<200> jsonBuffer;
-    JsonObject &j = jsonBuffer.createObject();
+    StaticJsonDocument<200> jsonBuffer;
 
     // if a card was seen in the last second
     if ((millis() - _cardSeenAt) <= 1000)
     {
         MFRC522::Uid *uid = &_mfrc522.uid;
-        j["uid"] = uidToString(uid->uidByte);
-        j["type"] = _mfrc522.PICC_GetTypeName( _mfrc522.PICC_GetType(uid->sak));
+        jsonBuffer["uid"] = uidToString(uid->uidByte);
+        jsonBuffer["type"] = _mfrc522.PICC_GetTypeName( _mfrc522.PICC_GetType(uid->sak));
         if( _isValid || _isMaster)
-            j["state"] = _isMaster  ? "master" : "valid";
+            jsonBuffer["state"] = _isMaster  ? "master" : "valid";
         else
-            j["state"] = "unknown";
+            jsonBuffer["state"] = "unknown";
     }
     else
     {
-        j["state"] = "nocard";
+        jsonBuffer["state"] = "nocard";
     }
-    Mqtt.publish(ALARM_RFID_CARD, j);
+    Mqtt.publish(ALARM_RFID_CARD, jsonBuffer);
 }
 
 //--------------------------------------------------------------------

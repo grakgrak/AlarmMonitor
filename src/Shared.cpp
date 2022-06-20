@@ -108,7 +108,7 @@ int checkForKeyPress(const TKeyPad keys[], int keyCount )
 
     uint16_t t_x, t_y; // To store the touch coordinates
 
-    if (tft.getTouch(&t_x, &t_y))
+    if (getTouch(&t_x, &t_y))
     {
         // check to see if a button was hit
         for (int i = 0; i < keyCount; ++i)
@@ -147,4 +147,11 @@ void setBacklight(bool state)
         digitalWrite(BUTTONLIGHT_PIN, state == false);
         _backlight = state;
     }
+}
+
+//--------------------------------------------------------------------
+bool getTouch(uint16_t *x, uint16_t *y)
+{
+    return false;
+    //return tft.getTouch(x, y);
 }

@@ -50,6 +50,69 @@ TFT_eSPI tft;
 TaskHandle_t _beepHandle;
 
 //--------------------------------------------------------------------
+// Code to run a screen calibration, not needed when calibration values set in setup()
+void touch_calibrate()
+{
+  uint16_t calData[5];
+  //uint8_t calDataOK = 0;
+
+  // Calibrate
+  tft.fillScreen(TFT_BLACK);
+  tft.setCursor(20, 0);
+  tft.setTextFont(2);
+  tft.setTextSize(1);
+  tft.setTextColor(TFT_WHITE, TFT_BLACK);
+
+  tft.println("Touch corners as indicated");
+
+  tft.setTextFont(1);
+  tft.println();
+
+  tft.calibrateTouch(calData, TFT_MAGENTA, TFT_BLACK, 15);
+
+  Serial.println(); Serial.println();
+  Serial.println("// Use this calibration code in setup():");
+  Serial.print("    uint16_t calData[5] = ");
+  Serial.print("{ ");
+
+  for (uint8_t i = 0; i < 5; i++)
+  {
+    Serial.print(calData[i]);
+    if (i < 4) Serial.print(", ");
+  }
+
+  Serial.println(" };");
+  Serial.print("    tft.setTouch(calData);");
+  Serial.println(); Serial.println();
+
+  tft.fillScreen(TFT_BLACK);
+  
+  tft.setTextColor(TFT_GREEN, TFT_BLACK);
+  tft.println("Calibration complete!");
+  tft.println("Calibration code sent to Serial port.");
+
+  delay(4000);
+}
+
+//--------------------------------------------------------------------
+void touch_calibrate_loop()
+{
+  uint16_t x = 0, y = 0; // To store the touch coordinates
+
+  // Pressed will be set true is there is a valid touch on the screen
+  boolean pressed = getTouch(&x, &y);
+
+  // Draw a white spot at the detected coordinates
+  if (pressed) {
+    tft.fillCircle(x, y, 2, TFT_WHITE);
+    Serial.print("x,y = ");
+    Serial.print(x);
+    Serial.print(",");
+    Serial.println(y);
+  }
+}
+
+//--------------------------------------------------------------------
 const char *resetReason(int reason)
 {
     if( reason < RESET_REASON_COUNT)
@@ -71,33 +134,31 @@ void PublishAllSensors()
 //--------------------------------------------------------------------
 void PublishEnvironment()
 {
-    StaticJsonBuffer<200> jsonBuffer;
-    JsonObject &j = jsonBuffer.createObject();
+    StaticJsonDocument<200> jsonBuffer;
 
-    j["Version"] = VERSION;
-    j["UpTime"] = upTime();
-    j["StartTime"] = startTime();
+    jsonBuffer["Version"] = VERSION;
+    jsonBuffer["UpTime"] = upTime();
+    jsonBuffer["StartTime"] = startTime();
     //j["IP"] = WiFi.localIP().toString();
     //j["MQTT-IP"] = String(Mqtt.server());
-    j["AlarmState"] = StateMachine.stateName();
+    jsonBuffer["AlarmState"] = StateMachine.stateName();
     
     //j["Stack"] = uxTaskGetStackHighWaterMark(NULL);
     //j["Heap"] = ESP.getFreeHeap();
     //j["BeepStack"] = uxTaskGetStackHighWaterMark(_beepHandle);
     //j["FlashSize"] = ESP.getFlashChipSize();
 
-    Mqtt.publish(ALARM_STATUS_ENV, j);
+    Mqtt.publish(ALARM_STATUS_ENV, jsonBuffer);
 }
 //--------------------------------------------------------------------
 void PublishResetReason()
 {
-    StaticJsonBuffer<200> jsonBuffer;
-    JsonObject &j = jsonBuffer.createObject();
+    StaticJsonDocument<200> jsonBuffer;
 
-    j["Reset-CPU0:"] = resetReason(0);
-    j["Reset-CPU1:"] = resetReason(1);
+    jsonBuffer["Reset-CPU0:"] = resetReason(0);
+    jsonBuffer["Reset-CPU1:"] = resetReason(1);
 
-    Mqtt.publish(ALARM_STATUS_RESET, j);
+    Mqtt.publish(ALARM_STATUS_RESET, jsonBuffer);
 }
 //--------------------------------------------------------------------
 void PublishAlarmStatus()
@@ -311,6 +372,14 @@ void setup()
     Debug.println("Setup complete.");
     Debug.ShowOnTFT(false);
 
+    // Calibrate the touch screen and retrieve the scaling factors
+    //touch_calibrate();
+
+    // touch screen calibration data
+    // uint16_t calData[5] = { 2684, 9, 1, 37, 7 };
+    // uint16_t calData[5] = { 286, 3534, 283, 3600, 6 };
+    // tft.setTouch(calData);
+
     tft.fillScreen(TFT_BLACK);
 }
 
@@ -323,15 +392,14 @@ void PeriodicAction(unsigned long now)
     {
         if (lastHeartbeat != 0)
         {
-            StaticJsonBuffer<200> jsonBuffer;
-            JsonObject &j = jsonBuffer.createObject();
+            StaticJsonDocument<200> jsonBuffer;
 
             // send out the ambient light level
             if( myLux != NULL && (myLux->getError() == 0))
-                j["lux"] = myLux->getLux();
-            j["UpTime"] = upTime();
+                jsonBuffer["lux"] = myLux->getLux();
+            jsonBuffer["UpTime"] = upTime();
 
-            Mqtt.publish(ALARM_HEARTBEAT, j);
+            Mqtt.publish(ALARM_HEARTBEAT, jsonBuffer);
 
             // send out the ambient light level
             // if( myLux != NULL)
@@ -349,6 +417,8 @@ void PeriodicAction(unsigned long now)
 //--------------------------------------------------------------------
 void loop()
 {
+    // touch_calibrate_loop();
+
     if (isWiFiConnected(750))
     {
         ArduinoOTA.handle();

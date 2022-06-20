@@ -18,9 +18,9 @@ const char *CMD_ALARM_RFID_MASTER = "cmd/alarm/rfid/master";
 #define JSON_BUF_SIZE   200
 
 //--------------------------------------------------------------------
-bool UidFromJson(StaticJsonBuffer<JSON_BUF_SIZE> &jsonBuffer, byte uid[], const char *payload)
+bool UidFromJson(StaticJsonDocument<JSON_BUF_SIZE> &jsonBuffer, byte uid[], const char *payload)
 {
-    JsonObject &root = jsonBuffer.parseObject(payload);
+    deserializeJson(jsonBuffer, payload);
 
     // uid[0] = root["uid0"].as<byte>();
     // uid[1] = root["uid1"].as<byte>();
@@ -28,7 +28,7 @@ bool UidFromJson(StaticJsonBuffer<JSON_BUF_SIZE> &jsonBuffer, byte uid[], const 
     // uid[3] = root["uid3"].as<byte>();
 
     for(int i = 0; i < 4; ++i)
-        uid[i] = root["uid"][i].as<byte>();
+        uid[i] = jsonBuffer["uid"][i].as<byte>();
 
     return true;
 }
@@ -38,7 +38,7 @@ void mqttCallback(char *topic, byte *payload, unsigned len)
     if(strcmp(topic, ALARM_HEARTBEAT_UPTIME) == 0)    // filter out heatbeat messages
         return;
 
-    StaticJsonBuffer<JSON_BUF_SIZE> jsonBuffer;
+    StaticJsonDocument<JSON_BUF_SIZE> jsonBuffer;
 
     char value[MQTT_MAX_PACKET_SIZE + 1];
 
@@ -74,15 +74,15 @@ void mqttCallback(char *topic, byte *payload, unsigned len)
 
     if (strcmp(topic, CMD_ALARM_BEEP) == 0)
     {
-        JsonObject &root = jsonBuffer.parseObject(value);
-        Beeper.Beep(root["on"], root["off"], root["repeat"]);
+        deserializeJson(jsonBuffer, value);
+        Beeper.Beep(jsonBuffer["on"], jsonBuffer["off"], jsonBuffer["repeat"]);
         return;
     }
 
     if (strcmp(topic, CMD_ALARM_TONE) == 0)
     {
-        JsonObject &root = jsonBuffer.parseObject(value);
-        Beeper.Tone(root["freq"], root["duration"]);
+        deserializeJson(jsonBuffer, value);
+        Beeper.Tone(jsonBuffer["freq"], jsonBuffer["duration"]);
         return;
     }
 

@@ -48,10 +48,10 @@ void TMainScreen::message(const String &msg)
     tft.drawString(msg, 130, 205, FONT_NORMAL);
 }
 //--------------------------------------------------------------------
-bool TMainScreen::getTouch()
+bool TMainScreen::getScreenTouch()
 {
     uint16_t t_x, t_y; // To store the touch coordinates
-    if (tft.getTouch(&t_x, &t_y))
+    if (getTouch(&t_x, &t_y))
     {
         Debug.printf("Touch at (%d,%d)\n", t_x, t_y);
         return true;

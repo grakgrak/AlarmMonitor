@@ -30,7 +30,7 @@ public:
   static bool loop();
   static void publish(const char *topic, const char *payload);
   static void publish(const String &topic, const String &payload);
-  static void publish(const String &topic, const JsonObject &j);
+  static void publish(const String &topic, const JsonDocument j);
 
   static const char *server();
 };

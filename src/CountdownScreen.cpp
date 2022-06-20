@@ -39,7 +39,7 @@ int TCountdownScreen::checkKeys()
 {
     uint16_t t_x, t_y; // To store the touch coordinates
 
-    if (tft.getTouch(&t_x, &t_y))
+    if (getTouch(&t_x, &t_y))
     {
         // check to see if cancel button was hit
             if (cancel.hitTest(t_x, t_y))

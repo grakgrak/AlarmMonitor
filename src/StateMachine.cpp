@@ -113,7 +113,7 @@ TMain::State TStateMachine::_SLEEPING(bool stateChanged)
         MainScreen.cancelEntry();
     }
 
-    if (MainScreen.getTouch())
+    if (MainScreen.getScreenTouch())
     {
         Debug.println("Woke by screen touch");
         return TMain::WAIT_FOR_CMD;
@@ -268,7 +268,7 @@ TMain::State TStateMachine::_ARMED(bool stateChanged)
         return TMain::WAIT_FOR_CMD;
     }
 
-    if (MainScreen.getTouch())
+    if (MainScreen.getScreenTouch())
         return TMain::ENTER_HOUSE;
 
     if (SensorDoor.IsTriggered()) // check DOOR for open

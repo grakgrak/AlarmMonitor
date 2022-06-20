@@ -73,10 +73,10 @@ void TMqtt::publish(const String &topic, const String &payload)
 }
 
 //--------------------------------------------------------------------
-void TMqtt::publish(const String &topic, const JsonObject &j)
+void TMqtt::publish(const String &topic, const JsonDocument j)
 {
     String payload;
-    j.printTo(payload);
+    serializeJson(j, payload);
     publish(topic.c_str(), payload.c_str());
 }
 

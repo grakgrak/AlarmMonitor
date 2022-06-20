@@ -18,7 +18,7 @@ class TMainScreen
     const char *_lastState;
   public:
     TMainScreen();
-    bool getTouch();
+    bool getScreenTouch();
     void render(const String &action);
     void stateMessage(const char *msg);
     void message(const String &msg);
