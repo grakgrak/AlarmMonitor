@@ -7,7 +7,7 @@
 #include <WiFiUdp.h>    // https://github.com/esp8266/Arduino/blob/master/libraries/ESP8266WiFi/src/WiFiUdp.h
 #include <ArduinoOTA.h> // https://github.com/esp8266/Arduino/blob/master/libraries/ArduinoOTA/ArduinoOTA.h
 #include "Max44009.h"
-
+#include "../../Credentials.h"
 #include "Shared.h"
 
 #define VERSION "1.1"
@@ -16,8 +16,8 @@
 #define MQTT_CONNECT_TIMEOUT (WIFI_CONNECT_TIMEOUT + 10000)
 #define TASK_STACK_SIZE 3000
 //--------------------------------------------------------------------
-const char *ssid = "BT-R2Z5";
-const char *password = "RNfmYVLu6HUX";
+const char *ssid = WIFI_SSID;
+const char *password = WIFI_PASSWORD;
 const char *hostname = "Terrorem";
 
 
@@ -90,8 +90,13 @@ void touch_calibrate()
   tft.setTextColor(TFT_GREEN, TFT_BLACK);
   tft.println("Calibration complete!");
   tft.println("Calibration code sent to Serial port.");
+  for (uint8_t i = 0; i < 5; i++)
+  {
+    tft.print(calData[i]);
+    if (i < 4) tft.print(", ");
+  }
 
-  delay(4000);
+  delay(10000);
 }
 
 //--------------------------------------------------------------------
@@ -373,12 +378,11 @@ void setup()
     Debug.ShowOnTFT(false);
 
     // Calibrate the touch screen and retrieve the scaling factors
-    //touch_calibrate();
+    // touch_calibrate();
 
     // touch screen calibration data
-    // uint16_t calData[5] = { 2684, 9, 1, 37, 7 };
-    // uint16_t calData[5] = { 286, 3534, 283, 3600, 6 };
-    // tft.setTouch(calData);
+    uint16_t calData[5] = { 416, 3509, 267, 3531, 1 };
+    tft.setTouch(calData);
 
     tft.fillScreen(TFT_BLACK);
 }

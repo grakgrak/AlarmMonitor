@@ -1,1 +1,1 @@
-LatticeCounter - Simple counter for Lattice training, using ESP8266
+Simple Home Alarm system

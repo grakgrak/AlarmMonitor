@@ -152,6 +152,5 @@ void setBacklight(bool state)
 //--------------------------------------------------------------------
 bool getTouch(uint16_t *x, uint16_t *y)
 {
-    return false;
-    //return tft.getTouch(x, y);
+    return tft.getTouch(x, y);
 }

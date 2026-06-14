@@ -1,6 +1,7 @@
 #include "Mqtt.h"
 #include "Shared.h"
 #include <WiFi.h>
+#include "../../Credentials.h"
 
 // listening topics
 const char *SYS_SYNC_HASH = "sys/sync/#";
@@ -22,10 +23,10 @@ const char *ALARM_LOG_TRACE = "alarm/log/trace";
 const char *ALARM_SENSOR = "alarm/sensor/"; // partial topic
 
 //--------------------------------------------------------------------
-const char *_mqttServer = "192.168.1.210";
 const int _mqttPort = 1883;
-const char *_mqttUser = "";
-const char *_mqttPassword = "";
+const char *_mqttServer = MQTT_SERVER;
+const char *_mqttUser = MQTT_USER;
+const char *_mqttPassword = MQTT_PASS;
 
 WiFiClient _wifiClient;
 PubSubClient _mqttClient(_wifiClient);
